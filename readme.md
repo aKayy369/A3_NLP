@@ -145,6 +145,8 @@ The web application integrates the trained Seq2Seq model with Additive Attention
 
 App Interface
 <p align="center"> <img src="images/image.png"> </p>
+<p align="center"> <img src="images/app.mp4"> </p>
+<video controls src="file:///Users/kharelanubhav/Desktop/A3_NLP/App/images/app.mp4" title="Title"></video>
 
 Running the App :
 
