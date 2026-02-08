@@ -38,21 +38,21 @@ This dataset provides high-quality aligned English–Nepali sentence pairs requi
 
 The following preprocessing steps were applied :
 
-1.Text Normalization
+   * 1. Text Normalization
 
-2.Lowercasing English text
+   * 2. Lowercasing English text
 
-3.Removing extra whitespace
+   * 3. Removing extra whitespace
 
-4.Unicode-safe handling for Nepali text
+   * 4. Unicode-safe handling for Nepali text
 
-5.Tokenization
+   * 5. Tokenization
 
-6.English: whitespace-based tokenization
+   * 6. English: whitespace-based tokenization
 
-7.Nepali: whitespace tokenization (sufficient for this dataset)
+   * 7. Nepali: whitespace tokenization (sufficient for this dataset)
 
-8.Special Tokens :
+   * 8. Special Tokens :
 
 PAD : padding
 
@@ -62,15 +62,15 @@ EOS : end of sentence
 
 UNK : unknown token
 
-9.Vocabulary Construction : 
+   * 9. Vocabulary Construction : 
 
 Separate vocabularies for source (English) and target (Nepali),Token-to-index and index-to-token mappings created
 
-10.Padding & Truncation
+   * 10. Padding & Truncation
 
-All sequences padded/truncated to a fixed maximum length
+* All sequences padded/truncated to a fixed maximum length
 
-11.Libraries Used
+   * 11. Libraries Used
 
 * datasets (HuggingFace)
 
