@@ -16,41 +16,43 @@ The assignment focuses on:
 ---
 
 
-Task 1: Dataset Selection & Preparation :
-1. Dataset
+## Task 1: Dataset Selection & Preparation :
 
-Dataset Name: English–Nepali Parallel Corpus
+### 1. Dataset - 
 
-Source: HuggingFace Datasets
+* Dataset Name: English–Nepali Parallel Corpus
 
-Link: https://huggingface.co/datasets/CohleM/english-to-nepali
+* Source: HuggingFace Datasets
 
-Number of Sentence Pairs: ~177,000 (subsampled for training efficiency)
+* Link: https://huggingface.co/datasets/CohleM/english-to-nepali
 
-License: As provided by the dataset author on HuggingFace
+* Number of Sentence Pairs: ~177,000 (subsampled for training efficiency)
+
+* License: As provided by the dataset author on HuggingFace
 
 Justification:
-This dataset provides aligned English–Nepali sentence pairs from a reputable public repository and is suitable for supervised neural machine translation.
 
-2. Data Preprocessing
+This dataset provides high-quality aligned English–Nepali sentence pairs required for supervised Seq2Seq-based Neural Machine Translation. It is distributed through HuggingFace Datasets, a widely used and trusted academic and industrial machine learning platform that hosts peer-reviewed and community-curated datasets. The parallel structure of the corpus enables effective learning of source–target mappings and attention-based alignments. In addition, the dataset covers a diverse range of sentence structures and vocabulary, which helps the model generalize beyond simple phrase-level translation. Its public availability, clear documentation, and prior usage in multilingual NLP research make it a reliable and appropriate choice for experimenting with attention mechanisms in English–Nepali machine translation.
 
-The following preprocessing steps were applied:
+### 2. Data Preprocessing
 
-Text Normalization
+The following preprocessing steps were applied :
 
-Lowercasing English text
+1.Text Normalization
 
-Removing extra whitespace
+2.Lowercasing English text
 
-Unicode-safe handling for Nepali text
+3.Removing extra whitespace
 
-Tokenization
+4.Unicode-safe handling for Nepali text
 
-English: whitespace-based tokenization
+5.Tokenization
 
-Nepali: whitespace tokenization (sufficient for this dataset)
+6.English: whitespace-based tokenization
 
-Special Tokens
+7.Nepali: whitespace tokenization (sufficient for this dataset)
+
+8.Special Tokens :
 
 PAD : padding
 
@@ -60,103 +62,41 @@ EOS : end of sentence
 
 UNK : unknown token
 
-Vocabulary Construction : 
+9.Vocabulary Construction : 
 
-Separate vocabularies for source (English) and target (Nepali)
+Separate vocabularies for source (English) and target (Nepali),Token-to-index and index-to-token mappings created
 
-Token-to-index and index-to-token mappings created
-
-Padding & Truncation
+10.Padding & Truncation
 
 All sequences padded/truncated to a fixed maximum length
 
-Libraries Used
+11.Libraries Used
 
-datasets (HuggingFace)
+* datasets (HuggingFace)
 
-torch
+* torch
 
-re (text normalization)
+* re (text normalization)
 
-Proper attribution is provided to all dataset and library authors.
 
-Task 2: Experiment with Attention Mechanisms
+## Task 2: Experiment with Attention Mechanisms
 
 A Seq2Seq neural network with an LSTM encoder and decoder was implemented. Two attention mechanisms were evaluated.
 
 1. General Attention
-𝑒
-𝑖
-=
-𝑠
-𝑇
-ℎ
-𝑖
-e
-i
-	​
 
-=s
-T
-h
-i
-	​
+    * Uses dot-product similarity between decoder state and encoder states,Computationally efficient,Requires equal dimensionality
 
+2. Additive Attention
+     
+     * Uses learnable parameters,More expressive due to non-linear transformation,Better suited for complex alignments
 
-Uses dot-product similarity between decoder state and encoder states
-
-Computationally efficient
-
-Requires equal dimensionality
-
-2. Additive (Bahdanau) Attention
-𝑒
-𝑖
-=
-𝑣
-𝑇
-tanh
-⁡
-(
-𝑊
-1
-ℎ
-𝑖
-+
-𝑊
-2
-𝑠
-)
-e
-i
-	​
-
-=v
-T
-tanh(W
-1
-	​
-
-h
-i
-	​
-
-+W
-2
-	​
-
-s)
-
-Uses learnable parameters
-
-More expressive due to non-linear transformation
-
-Better suited for complex alignments
 
 Both mechanisms were implemented and trained under identical conditions.
 
-Task 3: Evaluation & Verification
-1. Performance Comparison
+## Task 3: Evaluation & Verification
+
+### 1. Performance Comparison
 
 The models were evaluated using:
 
@@ -166,12 +106,15 @@ Validation Loss
 
 Perplexity (PPL)
 
-Training time (qualitative comparison)
+Training time (qualitative comparison) :
 
-Attention Type	Training Loss	Training PPL	Validation Loss	Validation PPL
-General Attention	7.2628	1426.27	8.2373	3779.43
-Additive Attention	7.1269	1245.03	8.0299	3071.54
-2. Loss Curves
+| Attention Type     | Training Loss | Training PPL | Validation Loss | Validation PPL |
+| ------------------ | ------------- | ------------ | --------------- | -------------- |
+| General Attention  | 7.2628        | 1426.27      | 8.2373          | 3779.43        |
+| Additive Attention | 7.1269        | 1245.03      | 8.0299          | 3071.54        |
+
+
+### 2. Loss Curves
 
 Training and validation loss curves were plotted for both attention mechanisms.
 
@@ -184,25 +127,21 @@ Attention maps were visualized as heatmaps showing alignment between source and 
 
 These maps provide interpretability by highlighting which source words the model focuses on while generating each target word.
 
-4. Analysis
+### 4. Analysis
 
-Additive Attention consistently achieved lower validation loss and perplexity than General Attention, indicating better translation quality and generalization. Although General Attention is computationally cheaper due to its dot-product formulation, it is less expressive. Additive Attention’s learnable parameters and non-linear combination enable more accurate alignment, which is particularly important for English–Nepali translation due to Nepali’s morphological richness and flexible word order. Attention heatmaps further confirm clearer and more focused alignments in the Additive model. Therefore, Additive Attention was selected for deployment.
+In this experiment, both General Attention and Additive Attention models were evaluated on the English–Nepali translation task using a larger training set and multiple epochs. Across all epochs, both models showed a steady decrease in training loss, indicating effective learning. However, the Additive Attention model consistently outperformed the General Attention model in terms of validation performance. By the final epoch, Additive Attention achieved a lower validation loss (approximately 8.03) and validation perplexity (around 3071) compared to General Attention, which exhibited a higher validation loss (approximately 8.24) and perplexity (around 3779). Although General Attention is computationally more efficient due to its simple dot-product formulation, it is less expressive in modeling complex alignments. Additive Attention, which incorporates learnable parameters and a non-linear combination of encoder and decoder states, is better able to capture richer source–target relationships. This advantage is particularly important for English–Nepali translation, as Nepali is a morphologically rich language with flexible word order. The attention heatmaps further support this conclusion, showing clearer and more focused alignment patterns in the Additive Attention model. Based on both quantitative metrics and qualitative attention visualization, Additive Attention was selected as the final model for deployment.
 
-Task 4: Web Application Development
+## Task 4: Web Application Development
 
 A web application was developed using Dash to demonstrate real-time English–Nepali machine translation.
 
-Application Features
+Application Features :
 
-Text input box for English sentences
+* Text input box for English sentences,Translate button to trigger inference,Display of generated Nepali translation
 
-Translate button to trigger inference
+Model–App Interface Documentation :
 
-Display of generated Nepali translation
-
-Model–App Interface Documentation
-
-The web application loads the trained Seq2Seq model with Additive Attention and the saved vocabularies at startup. User input is preprocessed, tokenized, numericalized, and passed through the encoder–decoder model for inference. The predicted Nepali tokens are detokenized and displayed on the interface. The model is loaded once to ensure efficient runtime performance.
+The web application integrates the trained Seq2Seq model with Additive Attention by loading the model parameters and the corresponding source and target vocabularies once during application startup. When a user enters an English sentence, the input text is first normalized and tokenized, after which each token is converted into its numerical representation using the source vocabulary. This numerical sequence is then passed through the encoder, which generates contextual representations of the input sentence. During decoding, the Additive Attention mechanism dynamically computes alignment weights between the encoder outputs and the current decoder state, allowing the model to focus on the most relevant source words while generating each Nepali token. The decoder continues this process step-by-step until an end-of-sentence token is produced. Finally, the predicted token indices are converted back into readable Nepali words and displayed on the web interface. By loading the model only once and reusing it for all user requests, the application ensures efficient and responsive inference.
 
 App Interface
 <p align="center"> <img src="images/image.png"> </p>
