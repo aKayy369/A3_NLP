@@ -148,7 +148,8 @@ App Interface
 <p align="center"> <img src="images/app.mp4"> </p>
 
 App Demo : 
-* [<video controls src="file:///Users/kharelanubhav/Desktop/A3_NLP/App/images/app.mp4" title="Title"></video>](https://github.com/aKayy369/A3_NLP/issues/1)
+
+[\[<video controls src="file:///Users/kharelanubhav/Desktop/A3_NLP/App/images/app.mp4" title="Title"></video>\](https://github.com/aKayy369/A3_NLP/issues/1)](https://github.com/aKayy369/A3_NLP/issues/1)
 
 Running the App :
 
